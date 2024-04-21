@@ -3,7 +3,7 @@
  * @Author: FaizalFeng fzx401@gmail.com
  * @Date: 2024-04-20 23:20:19
  * @LastEditors: FaizalFeng fzx401@gmail.com
- * @LastEditTime: 2024-04-21 14:05:05
+ * @LastEditTime: 2024-04-21 17:47:58
  * Copyright (c) 2024 by FaizalFeng, All Rights Reserved.
  */
 /*
@@ -52,61 +52,40 @@
  * 
  * 
  */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 // @lc code=start
 class Solution {
-    // public String longestPalindrome(String s) {
-    // int n = s.length();
-    // boolean dp[][] = new boolean[n][n];
-    // for (int i = 0; i < n; i++) {
-    // dp[i][i] = true;
-    // }
-    // int maxLen = 1;
-    // int begin = 0;
-    // for (int L = 2; L <= n; L++) {
-    // for (int i = 0; i < n; i++) {
-    // int j = i + L - 1;
-    // if (j >= n) {
-    // break;
-    // }
-    // if (s.charAt(i) != s.charAt(j)) {
-    // dp[i][j] = false;
-    // } else {
-    // if (j - i < 3) {
-    // dp[i][j] = true;
-    // } else {
-    // dp[i][j] = dp[i + 1][j - 1];
-    // }
-    // }
-    // if (dp[i][j] && j - i + 1 > maxLen) {
-    // maxLen = j - i + 1;
-    // begin = i;
-    // }
-    // }
-    // }
-    // return s.substring(begin, maxLen + begin);
-    // }
     public String longestPalindrome(String s) {
         int n = s.length();
-        String res;
-
+        boolean dp[][] = new boolean[n][n];
         for (int i = 0; i < n; i++) {
-
+            dp[i][i] = true;
         }
+        int maxLen = 1;
+        int begin = 0;
+        for (int L = 2; L <= n; L++) {
+            for (int i = 0; i < n; i++) {
+                int j = i + L - 1;
+                if (j >= n) {
+                    break;
+                }
+                if (s.charAt(i) != s.charAt(j)) {
+                    dp[i][j] = false;
+                } else {
+                    if (j - i < 3) {
+                        dp[i][j] = true;
+                    } else {
+                        dp[i][j] = dp[i + 1][j - 1];
+                    }
+                }
+                if (dp[i][j] && j - i + 1 > maxLen) {
+                    maxLen = j - i + 1;
+                    begin = i;
+                }
+            }
+        }
+        return s.substring(begin, maxLen + begin);
     }
 
-    boolean isPalindrome(String s) {
-        if (s.length() <= 1) {
-            return true;
-        }
-        if (s.length() == 2 && s.charAt(0) == s.charAt(1)) {
-            return true;
-        } else if (s.length() > 2) {
-            return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
-        }
-    }
 }
 // @lc code=end
